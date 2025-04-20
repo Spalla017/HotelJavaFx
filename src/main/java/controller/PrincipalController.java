@@ -57,6 +57,8 @@ public class PrincipalController implements Initializable {
 
     private List<Contato> listaCliente;
     private ObservableList<Contato> observableListCliente;
+    @FXML
+    private Button btnVoltar;
 
     /**
      * Initializes the controller class.
@@ -128,5 +130,10 @@ public class PrincipalController implements Initializable {
         observableListCliente = FXCollections.observableArrayList(listaCliente);
         tblCliente.setItems(observableListCliente);
 
+    }
+
+    @FXML
+    private void btnVoltarOnAction(ActionEvent event) throws IOException {
+        App.setRoot("TelaInicial");
     }
 }

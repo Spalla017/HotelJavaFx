@@ -19,9 +19,10 @@
             <TextField fx:id="txtFiltro" />
             <Button fx:id="btnFiltrar" mnemonicParsing="false" onAction="#btnFiltrarOnAction" prefWidth="65.0" text="Filtrar" />
             <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#btnLimparOnAction" prefWidth="65.0" text="Limpar" />
+            <Button fx:id="btnVoltar" alignment="CENTER" mnemonicParsing="false" onAction="#btnVoltarOnAction" prefWidth="65.0" text="Voltar" />
         </items>
       </ToolBar>
-      <TableView fx:id="tblCliente" layoutX="200.0" layoutY="110.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+      <TableView fx:id="tblCliente" layoutX="200.0" layoutY="42.0" prefHeight="358.0" prefWidth="606.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0">
         <columns>
           <TableColumn fx:id="tblColNome" prefWidth="251.0" text="Nome" />
           <TableColumn fx:id="tblColEmail" prefWidth="201.0" text="Email" />
