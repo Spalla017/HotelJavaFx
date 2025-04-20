@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controller;
 
 import java.io.IOException;
@@ -17,11 +13,6 @@ import model.dao.ContatoDaoJDBC;
 import model.dao.DaoFactory;
 import start.App;
 
-/**
- * FXML Controller class
- *
- * @author vinic
- */
 public class FormularioController implements Initializable {
 
     @FXML
@@ -31,21 +22,24 @@ public class FormularioController implements Initializable {
     @FXML
     private TextField txtTelefone;
     @FXML
+    private TextField txtIdade;
+    @FXML
+    private TextField txtCredito;
+    @FXML
     private Button btnCancelar;
     @FXML
     private Button btnGravar;
     
     private static Contato clienteSelecionado;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         if (clienteSelecionado != null){
             txtNome.setText(clienteSelecionado.getNome());
             txtEmail.setText(clienteSelecionado.getEmail());
             txtTelefone.setText(clienteSelecionado.getTelefone());
+            txtIdade.setText(String.valueOf(clienteSelecionado.getIdade()));
+            txtCredito.setText(String.valueOf(clienteSelecionado.getCredito()));
         }
     }    
 
@@ -61,6 +55,21 @@ public class FormularioController implements Initializable {
         cliente.setNome(txtNome.getText());
         cliente.setEmail(txtEmail.getText());
         cliente.setTelefone(txtTelefone.getText());
+        
+        // Parse idade para int - verificando se há valor
+        try {
+            cliente.setIdade(Integer.parseInt(txtIdade.getText().trim()));
+        } catch (NumberFormatException e) {
+            cliente.setIdade(0); // Valor padrão se estiver vazio ou não for um número
+        }
+        
+        // Parse credito para float - verificando se há valor
+        try {
+            cliente.setCredito(Float.parseFloat(txtCredito.getText().trim().replace(",", ".")));
+        } catch (NumberFormatException e) {
+            cliente.setCredito(0.0f); // Valor padrão se estiver vazio ou não for um número
+        }
+        
         ContatoDaoJDBC dao = DaoFactory.novoContatoDao();
         if(clienteSelecionado == null){
             dao.incluir(cliente);
@@ -79,7 +88,4 @@ public class FormularioController implements Initializable {
     public static void setClienteSelecionado(Contato clienteSelecionado) {
         FormularioController.clienteSelecionado = clienteSelecionado;
     }
-    
-    
-    
 }

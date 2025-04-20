@@ -8,7 +8,7 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PrincipalController">
+<AnchorPane id="AnchorPane" prefHeight="411.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PrincipalController">
    <children>
       <ToolBar layoutX="144.0" layoutY="38.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -22,11 +22,13 @@
             <Button fx:id="btnVoltar" alignment="CENTER" mnemonicParsing="false" onAction="#btnVoltarOnAction" prefWidth="65.0" text="Voltar" />
         </items>
       </ToolBar>
-      <TableView fx:id="tblCliente" layoutX="200.0" layoutY="42.0" prefHeight="358.0" prefWidth="606.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0">
+      <TableView fx:id="tblCliente" layoutX="200.0" layoutY="39.0" prefHeight="372.0" prefWidth="708.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="39.0">
         <columns>
-          <TableColumn fx:id="tblColNome" prefWidth="251.0" text="Nome" />
-          <TableColumn fx:id="tblColEmail" prefWidth="201.0" text="Email" />
-            <TableColumn fx:id="tblColTelefone" prefWidth="147.0" text="Telefone" />
+          <TableColumn fx:id="tblColNome" prefWidth="166.0" text="Nome" />
+          <TableColumn fx:id="tblColIdade" text="Idade" />
+          <TableColumn fx:id="tblColCredito" prefWidth="64.0" text="Crédito" />
+          <TableColumn fx:id="tblColEmail" prefWidth="188.0" text="Email" />
+          <TableColumn fx:id="tblColTelefone" prefWidth="114.0" text="Telefone" />
         </columns>
       </TableView>
    </children>

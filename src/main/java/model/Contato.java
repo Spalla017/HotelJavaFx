@@ -1,26 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-/**
- *
- * @author vinic
- */
 public class Contato {
     private int id;
     private String nome;
     private String email;
     private String telefone;
+    private int idade;
+    private float credito;
 
     public Contato() {
     }
 
-    public Contato(String nome, String email, String telefone) {
+    public Contato(String nome, String email, String telefone, int idade, float credito) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
+        this.idade = idade;
+        this.credito = credito;
     }
 
     public int getId() {
@@ -54,11 +50,25 @@ public class Contato {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+    
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
+    public float getCredito() {
+        return credito;
+    }
+
+    public void setCredito(float credito) {
+        this.credito = credito;
+    }
 
     @Override
     public String toString() {
-        return id + " / " + nome + " / " + email + " / " + telefone;
+        return id + " / " + nome + " / " + email + " / " + telefone + " / " + idade + " / " + credito;
     }
-   
-    
 }

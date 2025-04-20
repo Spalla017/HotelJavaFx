@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controller;
 
 import java.io.IOException;
@@ -26,11 +22,6 @@ import model.dao.ContatoDaoJDBC;
 import model.dao.DaoFactory;
 import start.App;
 
-/**
- * FXML Controller class
- *
- * @author vinic
- */
 public class PrincipalController implements Initializable {
 
     @FXML
@@ -54,15 +45,16 @@ public class PrincipalController implements Initializable {
     private TableColumn<Contato, String> tblColEmail;
     @FXML
     private TableColumn<Contato, String> tblColTelefone;
+    @FXML
+    private TableColumn<Contato, Integer> tblColIdade;
+    @FXML
+    private TableColumn<Contato, Float> tblColCredito;
 
     private List<Contato> listaCliente;
     private ObservableList<Contato> observableListCliente;
     @FXML
     private Button btnVoltar;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         carregarClientes("");
@@ -119,6 +111,8 @@ public class PrincipalController implements Initializable {
         tblColNome.setCellValueFactory(new PropertyValueFactory<>("Nome"));
         tblColEmail.setCellValueFactory(new PropertyValueFactory<>("Email"));
         tblColTelefone.setCellValueFactory(new PropertyValueFactory<>("Telefone"));
+        tblColIdade.setCellValueFactory(new PropertyValueFactory<>("Idade"));
+        tblColCredito.setCellValueFactory(new PropertyValueFactory<>("Credito"));
 
         try {
             ContatoDaoJDBC dao = DaoFactory.novoContatoDao();
@@ -129,7 +123,6 @@ public class PrincipalController implements Initializable {
 
         observableListCliente = FXCollections.observableArrayList(listaCliente);
         tblCliente.setItems(observableListCliente);
-
     }
 
     @FXML
