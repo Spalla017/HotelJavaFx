@@ -37,15 +37,7 @@ public class TelaInicialController implements Initializable {
 
     @FXML
     private void btnLivrosOnAction(ActionEvent event) throws IOException {
-        // Navega para a tela de gerenciamento de livros (a ser implementada)
-        // Por enquanto, apenas mostra mensagem de alerta
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
-        alert.setTitle("Em desenvolvimento");
-        alert.setHeaderText(null);
-        alert.setContentText("O módulo de gerenciamento de livros está em desenvolvimento.");
-        alert.showAndWait();
-        
-        // Quando a tela de livros for implementada, descomente a linha abaixo:
-        // App.setRoot("GerenciarLivros");
+        // Navega para a tela de gerenciamento de livros
+        App.setRoot("GerenciarLivros");
     }
 }

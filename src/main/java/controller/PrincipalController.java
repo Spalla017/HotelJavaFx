@@ -68,8 +68,17 @@ public class PrincipalController implements Initializable {
     @FXML
     private void btnEditarOnAction(ActionEvent event) throws IOException {
         Contato clienteSelecionado = tblCliente.getSelectionModel().getSelectedItem();
-        FormularioController.setClienteSelecionado(clienteSelecionado);
-        App.setRoot("Formulario");
+        if(clienteSelecionado != null){
+            FormularioController.setClienteSelecionado(clienteSelecionado);
+            App.setRoot("Formulario");
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Aviso");
+            alert.setHeaderText(null);
+            alert.setContentText("Selecione um cliente para editar.");
+            alert.showAndWait();
+        }
+        
     }
 
     @FXML
