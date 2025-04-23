@@ -6,14 +6,15 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import model.Contato;
-import model.dao.ContatoDaoJDBC;
+import model.Cliente;
+import model.dao.ClienteDaoJDBC;
 import model.dao.DaoFactory;
 import start.App;
 
-public class FormularioController implements Initializable {
+public class FormularioClienteController implements Initializable {
 
     @FXML
     private TextField txtNome;
@@ -29,63 +30,82 @@ public class FormularioController implements Initializable {
     private Button btnCancelar;
     @FXML
     private Button btnGravar;
-    
-    private static Contato clienteSelecionado;
+
+    private static Cliente clienteSelecionado;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if (clienteSelecionado != null){
+        if (clienteSelecionado != null) {
             txtNome.setText(clienteSelecionado.getNome());
             txtEmail.setText(clienteSelecionado.getEmail());
             txtTelefone.setText(clienteSelecionado.getTelefone());
             txtIdade.setText(String.valueOf(clienteSelecionado.getIdade()));
             txtCredito.setText(String.valueOf(clienteSelecionado.getCredito()));
         }
-    }    
+    }
 
     @FXML
     private void btnCancelarOnAction(ActionEvent event) throws IOException {
-        App.setRoot("Principal");
+        App.setRoot("GerenciarClientes");
         clienteSelecionado = null;
     }
 
     @FXML
     private void btnGravarOnAction(ActionEvent event) throws IOException, Exception {
-        Contato cliente = new Contato();
+        if (txtNome.getText().trim().isEmpty()) {
+            mostrarAlerta("Nome do cliente é obrigatório!");
+            return;
+        }
+        Cliente cliente = new Cliente();
         cliente.setNome(txtNome.getText());
         cliente.setEmail(txtEmail.getText());
         cliente.setTelefone(txtTelefone.getText());
-        
+
         // Parse idade para int - verificando se há valor
         try {
             cliente.setIdade(Integer.parseInt(txtIdade.getText().trim()));
         } catch (NumberFormatException e) {
-            cliente.setIdade(0); // Valor padrão se estiver vazio ou não for um número
+            mostrarAlerta("Idade inválida. Use um formato numérico válido.");
+            return;
         }
-        
+
         // Parse credito para float - verificando se há valor
         try {
             cliente.setCredito(Float.parseFloat(txtCredito.getText().trim().replace(",", ".")));
         } catch (NumberFormatException e) {
-            cliente.setCredito(0.0f); // Valor padrão se estiver vazio ou não for um número
+            mostrarAlerta("Crédito inválido. Use um formato numérico válido.");
+            return;
         }
-        
-        ContatoDaoJDBC dao = DaoFactory.novoContatoDao();
-        if(clienteSelecionado == null){
-            dao.incluir(cliente);
-        }else{
-            cliente.setId(clienteSelecionado.getId());
-            dao.editar(cliente);
-            clienteSelecionado = null;
+
+        try{
+            ClienteDaoJDBC dao = DaoFactory.novoClienteDao();
+            if (clienteSelecionado == null) {
+                dao.incluir(cliente);
+            } else {
+                cliente.setId(clienteSelecionado.getId());
+                dao.editar(cliente);
+                clienteSelecionado = null;
+            }
+            App.setRoot("GerenciarClientes");
+        }catch(Exception e) {
+            mostrarAlerta("Erro ao salvar cliente: " + e.getMessage());
         }
-        App.setRoot("Principal");
+
     }
 
-    public static Contato getClienteSelecionado() {
+    private void mostrarAlerta(String mensagem){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Aviso");
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
+
+    public static Cliente getClienteSelecionado() {
         return clienteSelecionado;
     }
 
-    public static void setClienteSelecionado(Contato clienteSelecionado) {
-        FormularioController.clienteSelecionado = clienteSelecionado;
+    public static void setClienteSelecionado(Cliente clienteSelecionado) {
+        FormularioClienteController.clienteSelecionado = clienteSelecionado;
     }
 }

@@ -17,12 +17,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.Contato;
-import model.dao.ContatoDaoJDBC;
+import model.Cliente;
+import model.dao.ClienteDaoJDBC;
 import model.dao.DaoFactory;
 import start.App;
 
-public class PrincipalController implements Initializable {
+public class GerenciarClientesController implements Initializable {
 
     @FXML
     private Button btnIncluir;
@@ -31,29 +31,32 @@ public class PrincipalController implements Initializable {
     @FXML
     private Button btnExcluir;
     @FXML
-    private TextField txtFiltro;
+    private Button btnLimpar;
+    @FXML
+    private Button btnVoltar;
     @FXML
     private Button btnFiltrar;
     @FXML
-    private Button btnLimpar;
+    private TextField txtFiltro;
+    
+    
 
     @FXML
-    private TableView<Contato> tblCliente;
+    private TableView<Cliente> tblCliente;
     @FXML
-    private TableColumn<Contato, String> tblColNome;
+    private TableColumn<Cliente, String> tblColNome;
     @FXML
-    private TableColumn<Contato, String> tblColEmail;
+    private TableColumn<Cliente, String> tblColEmail;
     @FXML
-    private TableColumn<Contato, String> tblColTelefone;
+    private TableColumn<Cliente, String> tblColTelefone;
     @FXML
-    private TableColumn<Contato, Integer> tblColIdade;
+    private TableColumn<Cliente, Integer> tblColIdade;
     @FXML
-    private TableColumn<Contato, Float> tblColCredito;
+    private TableColumn<Cliente, Float> tblColCredito;
 
-    private List<Contato> listaCliente;
-    private ObservableList<Contato> observableListCliente;
-    @FXML
-    private Button btnVoltar;
+    private List<Cliente> listaCliente;
+    private ObservableList<Cliente> observableListCliente;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -62,47 +65,57 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void btnIncluirOnAction(ActionEvent event) throws IOException {
-        App.setRoot("Formulario");
+        App.setRoot("FormularioCliente");
     }
 
     @FXML
     private void btnEditarOnAction(ActionEvent event) throws IOException {
-        Contato clienteSelecionado = tblCliente.getSelectionModel().getSelectedItem();
-        if(clienteSelecionado != null){
-            FormularioController.setClienteSelecionado(clienteSelecionado);
-            App.setRoot("Formulario");
-        }else{
+        Cliente clienteSelecionado = tblCliente.getSelectionModel().getSelectedItem();
+        if (clienteSelecionado != null) {
+            FormularioClienteController.setClienteSelecionado(clienteSelecionado);
+            App.setRoot("FormularioCliente");
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Aviso");
             alert.setHeaderText(null);
             alert.setContentText("Selecione um cliente para editar.");
             alert.showAndWait();
         }
-        
+
     }
 
     @FXML
     private void btnExcluirOnAction(ActionEvent event) throws Exception {
-        Contato clienteSelecionado = tblCliente.getSelectionModel().getSelectedItem();
-        ContatoDaoJDBC dao = DaoFactory.novoContatoDao();
+        Cliente clienteSelecionado = tblCliente.getSelectionModel().getSelectedItem();
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Aviso");
-        alert.setContentText("Confirma exclusão de " + clienteSelecionado.getNome() + "?");
+        if (clienteSelecionado != null) {
+            ClienteDaoJDBC dao = DaoFactory.novoClienteDao();
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            try {
-                dao.excluir(clienteSelecionado);
-            } catch (Exception e) {
-                String mensagem = "Ocorreu um erro " + e.getMessage();
-                Alert alertErro = new Alert(Alert.AlertType.INFORMATION);
-                alertErro.setTitle("Aviso");
-                alertErro.setContentText(mensagem);
-                alertErro.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Aviso");
+            alert.setContentText("Confirma exclusão de " + clienteSelecionado.getNome() + "?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                try {
+                    dao.excluir(clienteSelecionado);
+                } catch (Exception e) {
+                    String mensagem = "Ocorreu um erro " + e.getMessage();
+                    Alert alertErro = new Alert(Alert.AlertType.INFORMATION);
+                    alertErro.setTitle("Aviso");
+                    alertErro.setContentText(mensagem);
+                    alertErro.showAndWait();
+                }
             }
+            carregarClientes("");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Aviso");
+            alert.setHeaderText(null);
+            alert.setContentText("Selecione um cliente para excluir.");
+            alert.showAndWait();
         }
-        carregarClientes("");
+
     }
 
     @FXML
@@ -124,7 +137,7 @@ public class PrincipalController implements Initializable {
         tblColCredito.setCellValueFactory(new PropertyValueFactory<>("Credito"));
 
         try {
-            ContatoDaoJDBC dao = DaoFactory.novoContatoDao();
+            ClienteDaoJDBC dao = DaoFactory.novoClienteDao();
             listaCliente = dao.listar(param);
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -1,6 +1,6 @@
 package model;
 
-public class Contato {
+public class Cliente {
     private int id;
     private String nome;
     private String email;
@@ -8,10 +8,10 @@ public class Contato {
     private int idade;
     private float credito;
 
-    public Contato() {
+    public Cliente() {
     }
 
-    public Contato(String nome, String email, String telefone, int idade, float credito) {
+    public Cliente(String nome, String email, String telefone, int idade, float credito) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;

@@ -32,7 +32,7 @@ public class TelaInicialController implements Initializable {
     @FXML
     private void btnClientesOnAction(ActionEvent event) throws IOException {
         // Navega para a tela de gerenciamento de clientes
-        App.setRoot("Principal");
+        App.setRoot("GerenciarClientes");
     }
 
     @FXML

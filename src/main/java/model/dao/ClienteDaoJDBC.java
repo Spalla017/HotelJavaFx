@@ -5,18 +5,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import model.Contato;
+import model.Cliente;
 
-public class ContatoDaoJDBC implements InterfaceDao<Contato> {
+public class ClienteDaoJDBC implements InterfaceDao<Cliente> {
 
     private Connection conn;
 
-    public ContatoDaoJDBC() throws Exception {
+    public ClienteDaoJDBC() throws Exception {
         this.conn = ConnFactory.getConnection();
     }
 
     @Override
-    public void incluir(Contato entidade) throws Exception {
+    public void incluir(Cliente entidade) throws Exception {
         PreparedStatement ps = conn.prepareStatement("INSERT INTO Cliente (nome, email, telefone, idade, credito) VALUES (?, ?, ?, ?, ?)");
         ps.setString(1, entidade.getNome());
         ps.setString(2, entidade.getEmail());
@@ -27,7 +27,7 @@ public class ContatoDaoJDBC implements InterfaceDao<Contato> {
     }
 
     @Override
-    public void editar(Contato entidade) throws Exception {
+    public void editar(Cliente entidade) throws Exception {
         PreparedStatement ps = conn.prepareStatement("UPDATE Cliente SET nome = ?, email = ?, telefone = ?, idade = ?, credito = ? WHERE id = ?");
         ps.setString(1, entidade.getNome());
         ps.setString(2, entidade.getEmail());
@@ -39,20 +39,20 @@ public class ContatoDaoJDBC implements InterfaceDao<Contato> {
     }
 
     @Override
-    public void excluir(Contato entidade) throws Exception {
+    public void excluir(Cliente entidade) throws Exception {
         PreparedStatement ps = conn.prepareStatement("DELETE FROM Cliente WHERE id = ?");
         ps.setInt(1, entidade.getId());
         ps.execute();
     }
 
     @Override
-    public Contato pesquisarPorId(int id) throws Exception {
+    public Cliente pesquisarPorId(int id) throws Exception {
         PreparedStatement ps1 = conn.prepareStatement("SELECT * FROM Cliente WHERE id = ?");
         ps1.setInt(1, id);
         ResultSet rs = ps1.executeQuery();
-        Contato c = null;
+        Cliente c = null;
         if (rs.next()) {
-            c = new Contato();
+            c = new Cliente();
             c.setId(rs.getInt("id"));
             c.setNome(rs.getString("nome"));
             c.setEmail(rs.getString("email"));
@@ -64,7 +64,7 @@ public class ContatoDaoJDBC implements InterfaceDao<Contato> {
     }
 
     @Override
-    public List<Contato> listar(String param) throws Exception {
+    public List<Cliente> listar(String param) throws Exception {
         PreparedStatement ps = null;
         if(param == ""){
             ps = conn.prepareStatement("SELECT * FROM Cliente");
@@ -74,9 +74,9 @@ public class ContatoDaoJDBC implements InterfaceDao<Contato> {
         }
         
         ResultSet rs = ps.executeQuery();
-        List<Contato> lista = new ArrayList<>();
+        List<Cliente> lista = new ArrayList<>();
         while (rs.next()) {
-            Contato c = new Contato();
+            Cliente c = new Cliente();
             c.setId(rs.getInt("id"));
             c.setNome(rs.getString("nome"));
             c.setEmail(rs.getString("email"));
