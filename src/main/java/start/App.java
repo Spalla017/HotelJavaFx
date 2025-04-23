@@ -9,9 +9,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import static javafx.application.Application.launch;
 
-/**
- * JavaFX App
- */
 public class App extends Application {
 
     private static Scene scene;
@@ -19,7 +16,6 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        // Alterado para começar com a tela inicial em vez da tela Principal
         scene = new Scene(loadFXML("TelaInicial"), 640, 480);
         stage.setScene(scene);
         stage.setTitle("Spalla's Library");

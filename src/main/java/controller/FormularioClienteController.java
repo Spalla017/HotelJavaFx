@@ -61,7 +61,7 @@ public class FormularioClienteController implements Initializable {
         cliente.setEmail(txtEmail.getText());
         cliente.setTelefone(txtTelefone.getText());
 
-        // Parse idade para int - verificando se há valor
+        
         try {
             cliente.setIdade(Integer.parseInt(txtIdade.getText().trim()));
         } catch (NumberFormatException e) {
@@ -69,7 +69,7 @@ public class FormularioClienteController implements Initializable {
             return;
         }
 
-        // Parse credito para float - verificando se há valor
+        
         try {
             cliente.setCredito(Float.parseFloat(txtCredito.getText().trim().replace(",", ".")));
         } catch (NumberFormatException e) {

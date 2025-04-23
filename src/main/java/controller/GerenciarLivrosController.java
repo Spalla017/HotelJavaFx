@@ -103,7 +103,7 @@ public class GerenciarLivrosController implements Initializable {
         if (result.get() == ButtonType.OK) {
             try {
                 dao.excluir(livroSelecionado);
-                carregarLivros(""); // Recarrega a lista após exclusão
+                carregarLivros(""); 
             } catch (Exception e) {
                 String mensagem = "Ocorreu um erro: " + e.getMessage();
                 Alert alertErro = new Alert(Alert.AlertType.ERROR);

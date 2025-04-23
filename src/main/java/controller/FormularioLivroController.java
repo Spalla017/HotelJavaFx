@@ -63,7 +63,7 @@ public class FormularioLivroController implements Initializable {
         livro.setEditora(txtEditora.getText());
         livro.setEdicao(txtEdicao.getText());
         
-        // Parse preço para float - verificando se há valor
+        
         try {
             livro.setPreco(Float.parseFloat(txtPreco.getText().trim().replace(",", ".")));
         } catch (NumberFormatException e) {
